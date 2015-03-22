@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'vpn_connection/create'
+
+  get 'vpn_connection/destroy'
+
   root 'static_pages#home'
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
