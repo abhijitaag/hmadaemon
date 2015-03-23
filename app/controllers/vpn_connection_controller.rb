@@ -1,3 +1,5 @@
+require 'open3'
+
 class VpnConnectionController < ApplicationController
   basic_auth_creds = Rails.configuration.global_settings[:basic_auth]
   http_basic_authenticate_with name: basic_auth_creds[:name], password: basic_auth_creds[:password]
@@ -12,7 +14,7 @@ class VpnConnectionController < ApplicationController
         message = connect_to_vpn(country)
         success = connected?
       else
-        message = "Please wait before initiating a new connection"
+        message = "Please wait a few minutes before initiating a new connection"
         success = false
       end
     end
@@ -25,7 +27,7 @@ class VpnConnectionController < ApplicationController
 
   def destroy
     if connected?
-      Open3.popen3('kilall', 'openvpn')
+      Open3.popen3('killall', 'openvpn')
       conn = last_connection
       conn.active = false
       conn.save!

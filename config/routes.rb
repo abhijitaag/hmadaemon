@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'countries/index'
+
+  get 'countries/update'
+
+  get 'countries/new'
+
   get 'vpn_connection/create'
 
   get 'vpn_connection/destroy'
